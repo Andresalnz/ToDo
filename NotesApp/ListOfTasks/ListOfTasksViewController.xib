@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ListOfTasksViewController" customModule="NotesApp" customModuleProvider="target">
             <connections>
+                <outlet property="addTaskButton" destination="HNY-o5-9wa" id="jdj-4N-TDQ"/>
                 <outlet property="tableView" destination="Hj0-FY-54l" id="kdm-Rc-n4K"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -27,6 +28,9 @@
                     <rect key="frame" x="159" y="627" width="75" height="35"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                    <connections>
+                        <action selector="addTaskButtonAction:" destination="-1" eventType="touchUpInside" id="zwK-0N-Gbd"/>
+                    </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

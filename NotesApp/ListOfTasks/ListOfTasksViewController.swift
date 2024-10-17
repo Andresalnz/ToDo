@@ -10,6 +10,7 @@ import UIKit
 class ListOfTasksViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var addTaskButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +28,10 @@ class ListOfTasksViewController: UIViewController {
     func registerCell() {
         let nib = UINib(nibName: String(describing: TaskTableViewCell.self), bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: TaskTableViewCell.identifier)
+    }
+    @IBAction func addTaskButtonAction(_ sender: Any) {
+        let view = DetailTaskViewController(nibName: String(describing: DetailTaskViewController.self), bundle: nil)
+        navigationController?.pushViewController(view, animated: true)
     }
 }
 
