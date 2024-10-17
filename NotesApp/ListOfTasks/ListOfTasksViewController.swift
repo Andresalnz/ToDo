@@ -30,7 +30,7 @@ class ListOfTasksViewController: UIViewController {
         tableView.register(nib, forCellReuseIdentifier: TaskTableViewCell.identifier)
     }
     @IBAction func addTaskButtonAction(_ sender: Any) {
-        let view = DetailTaskViewController(nibName: String(describing: DetailTaskViewController.self), bundle: nil)
+        let view = AddTaskViewController(nibName: String(describing: AddTaskViewController.self), bundle: nil)
         navigationController?.pushViewController(view, animated: true)
     }
 }

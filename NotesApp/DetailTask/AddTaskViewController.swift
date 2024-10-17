@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailTaskViewController: UIViewController {
+class AddTaskViewController: UIViewController {
     
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var nameTextField: UITextField!
