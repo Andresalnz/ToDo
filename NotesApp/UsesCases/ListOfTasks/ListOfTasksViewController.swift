@@ -47,7 +47,7 @@ class ListOfTasksViewController: UIViewController, DataProviderUi {
     func router() {
         let interactor = DataProvider()
         let presenter = AddTaskPresenter(interactor: interactor)
-        let view = AddTaskViewController()
+        let view = AddNoteViewController()
         view.ui = self
         view.presenter = presenter
         navigationController?.pushViewController(view, animated: true)

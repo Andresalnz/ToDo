@@ -98,36 +98,6 @@
             endingLineNumber = "47"
             landmarkName = "saveEditActionButton(_:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "C9F989AA-26D8-417C-BAA8-C50B0B36AD42 - 89fa94c80fbea86c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "NotesApp.EditViewController.saveEditActionButton(Any) -&gt; ()"
-                  moduleName = "NotesApp.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andresaleu/workSpace/iOS/UiKit/NotesApp/NotesApp/EditTask/EditViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47">
-               </Location>
-               <Location
-                  uuid = "C9F989AA-26D8-417C-BAA8-C50B0B36AD42 - 89fa94c80fbea86c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "NotesApp.EditViewController.saveEditActionButton(Any) -&gt; ()"
-                  moduleName = "NotesApp.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andresaleu/workSpace/iOS/UiKit/NotesApp/NotesApp/EditTask/EditViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

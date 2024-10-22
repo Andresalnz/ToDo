@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddTaskViewController: UIViewController {
+class AddNoteViewController: UIViewController {
    
     
     

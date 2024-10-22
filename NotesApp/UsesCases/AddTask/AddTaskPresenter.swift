@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-protocol AddTaskPresenterProtocol: AnyObject {
+protocol AddNotePresenterProtocol: AnyObject {
     func addTask(name: String?, description: String?)
 }
 
