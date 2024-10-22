@@ -7,12 +7,12 @@
 
 import UIKit
 
-class ListOfTasksViewController: UIViewController, DataProviderUi {
+class NotesListViewController: UIViewController, DataProviderUi {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addTaskButton: UIButton!
     
-    var presenter: ListOfTasksPresenter?
+    var presenter: NotesListPresenter?
         
     
     override func viewDidLoad() {
@@ -36,8 +36,8 @@ class ListOfTasksViewController: UIViewController, DataProviderUi {
     }
    
     func registerCell() {
-        let nib = UINib(nibName: String(describing: TaskTableViewCell.self), bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: TaskTableViewCell.identifier)
+        let nib = UINib(nibName: String(describing: NoteTableViewCell.self), bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: NoteTableViewCell.identifier)
     }
     
     @IBAction func addTaskButtonAction(_ sender: Any) {
@@ -55,7 +55,7 @@ class ListOfTasksViewController: UIViewController, DataProviderUi {
 }
 
 //MARK: - UITableViewDataSource, UITableViewDelegate
-extension ListOfTasksViewController: UITableViewDataSource, UITableViewDelegate {
+extension NotesListViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -68,7 +68,7 @@ extension ListOfTasksViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cellTask: TaskTableViewCell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell else { return UITableViewCell() }
+        guard let cellTask: NoteTableViewCell = tableView.dequeueReusableCell(withIdentifier: NoteTableViewCell.identifier, for: indexPath) as? NoteTableViewCell else { return UITableViewCell() }
         if let task = presenter?.tasks[indexPath.row] {
             cellTask.configurePrint(with: task)
         

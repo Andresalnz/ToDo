@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TaskTableViewCell: UITableViewCell {
+class NoteTableViewCell: UITableViewCell {
     
     static let identifier: String = "TaskTableViewCell"
 

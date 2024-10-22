@@ -14,7 +14,7 @@ enum StatusNotes {
     case error
 }
 
-class ListOfTasksPresenter {
+class NotesListPresenter {
     
      let dataProvider: DataProvider?
      var ui: DataProviderUi?

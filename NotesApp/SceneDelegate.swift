@@ -10,7 +10,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var listTask: ListOfTasksViewController?
+    var listTask: NotesListViewController?
     var navMain = UINavigationController()
     
 
@@ -20,8 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let presenter = ListOfTasksPresenter(dataProvider: DataProvider())
-        let view = ListOfTasksViewController()
+        let presenter = NotesListPresenter(dataProvider: DataProvider())
+        let view = NotesListViewController()
         listTask = view
         presenter.ui = listTask
         view.presenter = presenter
