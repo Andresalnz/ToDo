@@ -7,7 +7,7 @@
 
 import Foundation
 
-class EditPresenter {
+class EditNotePresenter {
     
     var interactor: DataProvider = DataProvider()
     

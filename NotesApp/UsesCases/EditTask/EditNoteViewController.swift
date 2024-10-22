@@ -7,12 +7,12 @@
 
 import UIKit
 
-class EditViewController: UIViewController {
+class EditNoteViewController: UIViewController {
 
     @IBOutlet weak var editTaskTextField: UITextField!
     @IBOutlet weak var saveEditButton: UIButton!
     
-    var presenter: EditPresenter?
+    var presenter: EditNotePresenter?
     var ui: DataProviderUi?
     
     var task: TaskList?

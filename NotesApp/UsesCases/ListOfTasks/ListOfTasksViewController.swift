@@ -82,8 +82,8 @@ extension ListOfTasksViewController: UITableViewDataSource, UITableViewDelegate 
         let task = presenter?.tasks[indexPath.row]
         
         let interactor = DataProvider()
-        let presenter = EditPresenter(interactor: interactor)
-        let view = EditViewController(task: task, nibName: String(describing: EditViewController.self), bundle: nil)
+        let presenter = EditNotePresenter(interactor: interactor)
+        let view = EditNoteViewController(task: task, nibName: String(describing: EditNoteViewController.self), bundle: nil)
         view.ui = self
         view.presenter = presenter
         navigationController?.pushViewController(view, animated: true)
