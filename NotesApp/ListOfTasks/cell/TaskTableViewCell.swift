@@ -25,4 +25,8 @@ class TaskTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    
+    func configurePrint(with task: TaskList) {
+        self.task.text = task.name
+    }
 }
