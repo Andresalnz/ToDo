@@ -10,6 +10,7 @@ import UIKit
 
 protocol ConfigurationNavigationBar {
     func createButtonsItem()
+    func createNavigationBar()
 }
 
 protocol ConfigurationMenuButtonItem {
