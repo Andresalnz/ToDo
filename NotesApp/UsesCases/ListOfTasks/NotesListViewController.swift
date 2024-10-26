@@ -103,6 +103,7 @@ extension NotesListViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+//MARK: - ConfigurationNavigationBar, ConfigurationMenuButtonItem
 extension NotesListViewController: ConfigurationNavigationBar, ConfigurationMenuButtonItem {
     func createAndConfigureMenuButtonItem(button: UIBarButtonItem) {
         let menu = UIMenu(title: "", options: .destructive, children: actions)
