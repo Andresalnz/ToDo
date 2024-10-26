@@ -10,17 +10,20 @@ import UIKit
 class NotesListViewController: UIViewController, DataProviderUi {
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var addTaskButton: UIButton!
     
     var presenter: NotesListPresenter?
-        
+    
+    var actions: [UIAction] = []
+    var buttonsItem: [UIBarButtonItem] = []
+    let appearance = UINavigationBarAppearance()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTable()
+        createNavigationBar()
+        createButtonsItem()
     }
     
-  
     func update() {
         presenter?.fetchTasks()
         self.tableView.reloadData()
@@ -30,7 +33,6 @@ class NotesListViewController: UIViewController, DataProviderUi {
     func configureTable() {
         tableView.dataSource = self
         tableView.delegate = self
-        title = "Task List"
         registerCell()
         presenter?.fetchTasks()
     }
@@ -98,5 +100,32 @@ extension NotesListViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         
+    }
+}
+
+extension NotesListViewController: ConfigurationNavigationBar, ConfigurationMenuButtonItem {
+    func createAndConfigureMenuButtonItem(button: UIBarButtonItem) {
+        let menu = UIMenu(title: "", options: .destructive, children: actions)
+        button.menu = menu
+    }
+    
+    
+    func createButtonsItem() {
+        let buttonMenu = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: self, action: nil)
+        buttonsItem.append(contentsOf: [buttonMenu])
+        self.navigationItem.setRightBarButtonItems(buttonsItem, animated: true)
+        createAcctionMenu()
+        createAndConfigureMenuButtonItem(button: buttonMenu)
+    }
+    
+    func createAcctionMenu() {
+        let action1 = UIAction(title: "Action 1", image: UIImage(systemName: "star"), handler: { _ in print("1") })
+        let action2 = UIAction(title: "Action 1", image: UIImage(systemName: "star"), handler: { _ in print("2") })
+        let action3 = UIAction(title: "Action 1", image: UIImage(systemName: "star"), handler: { _ in print("3") })
+        actions.append(contentsOf: [action1, action2, action3])
+    }
+    
+    func createNavigationBar() {
+        self.navigationController?.navigationBar.navigationBarWithApperance(appearance, isTranslucent: false, barstyle: .black, title: "Notes", color: .systemGray6, prefersLargeTitles: true)
     }
 }

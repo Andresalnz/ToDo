@@ -10,8 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NotesListViewController" customModule="NotesApp" customModuleProvider="target">
             <connections>
-                <outlet property="addTaskButton" destination="HNY-o5-9wa" id="jdj-4N-TDQ"/>
-                <outlet property="tableView" destination="Hj0-FY-54l" id="kdm-Rc-n4K"/>
+                <outlet property="tableView" destination="V1y-rB-IbS" id="Hiw-xN-2fs"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,29 +19,19 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Hj0-FY-54l">
-                    <rect key="frame" x="0.0" y="59" width="393" height="533"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="V1y-rB-IbS">
+                    <rect key="frame" x="0.0" y="59" width="393" height="793"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HNY-o5-9wa">
-                    <rect key="frame" x="159" y="627" width="75" height="35"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                    <connections>
-                        <action selector="addTaskButtonAction:" destination="-1" eventType="touchUpInside" id="zwK-0N-Gbd"/>
-                    </connections>
-                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="Hj0-FY-54l" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" id="0A2-wF-7Yg"/>
-                <constraint firstItem="HNY-o5-9wa" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="159" id="BGG-10-YLC"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Hj0-FY-54l" secondAttribute="trailing" id="DvG-wJ-2wB"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="HNY-o5-9wa" secondAttribute="trailing" constant="159" id="Q0E-NR-YyQ"/>
-                <constraint firstItem="HNY-o5-9wa" firstAttribute="top" secondItem="Hj0-FY-54l" secondAttribute="bottom" constant="35" id="acI-v5-zL4"/>
-                <constraint firstItem="Hj0-FY-54l" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="d7B-ZH-duF"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="HNY-o5-9wa" secondAttribute="bottom" constant="156" id="x3b-jP-GZ4"/>
+                <constraint firstItem="V1y-rB-IbS" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="3q2-du-uKh"/>
+                <constraint firstAttribute="bottom" secondItem="V1y-rB-IbS" secondAttribute="bottom" id="PSk-fC-ytU"/>
+                <constraint firstItem="V1y-rB-IbS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="iXn-Qg-6NJ"/>
+                <constraint firstItem="V1y-rB-IbS" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="j5P-gw-BRD"/>
+                <constraint firstItem="V1y-rB-IbS" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="sPd-Ea-HNr"/>
             </constraints>
             <point key="canvasLocation" x="130.53435114503816" y="-11.267605633802818"/>
         </view>
