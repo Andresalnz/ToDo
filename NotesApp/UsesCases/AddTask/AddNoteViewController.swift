@@ -17,7 +17,7 @@ class AddNoteViewController: UIViewController {
     @IBOutlet weak var saveButton: UIButton!
     
     var presenter: AddTaskPresenter?
-    var ui: DataProviderUi?
+    var ui: PresenterUi?
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -16,12 +16,6 @@ protocol DataProviderProtocol {
    
 }
 
-protocol DataProviderUi: AnyObject {
-    func update()
-    //adtask
-    
-}
-
 class DataProvider {
    
     

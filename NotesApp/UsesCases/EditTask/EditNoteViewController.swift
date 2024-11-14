@@ -13,7 +13,7 @@ class EditNoteViewController: UIViewController {
     @IBOutlet weak var saveEditButton: UIButton!
     
     var presenter: EditNotePresenter?
-    var ui: DataProviderUi?
+    var ui: PresenterUi?
     
     var task: TaskList?
     
