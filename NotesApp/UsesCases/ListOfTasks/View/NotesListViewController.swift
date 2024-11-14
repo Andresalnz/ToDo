@@ -7,34 +7,32 @@
 
 import UIKit
 
-class NotesListViewController: UIViewController, DataProviderUi {
+class NotesListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
     var presenter: NotesListPresenter?
     
+    @IBOutlet var containerView: UIView!
     var actions: [UIAction] = []
     var buttonsItem: [UIBarButtonItem] = []
     let appearance = UINavigationBarAppearance()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter?.viewDidLoad()
         configureTable()
         createNavigationBar()
         createButtonsItem()
+        
+    
     }
     
-    func update() {
-        presenter?.fetchTasks()
-        self.tableView.reloadData()
-        
-    }
     
     func configureTable() {
         tableView.dataSource = self
         tableView.delegate = self
         registerCell()
-        presenter?.fetchTasks()
     }
    
     func registerCell() {
@@ -128,5 +126,22 @@ extension NotesListViewController: ConfigurationNavigationBar, ConfigurationMenu
     
     func createNavigationBar() {
         self.navigationController?.navigationBar.navigationBarWithApperance(appearance, isTranslucent: false, barstyle: .black, title: "Notes", color: .systemGray6, prefersLargeTitles: true)
+    }
+}
+
+extension NotesListViewController: ConnfigurationToolbar {
+    func configure(_ hidden: Bool, _ animated: Bool) {
+        let buttonMenu = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: self, action: nil)
+        toolbarItems = [UIBarButtonItem(systemItem: .flexibleSpace),buttonMenu]
+        self.navigationController?.setToolbarHidden(false, animated: true)
+    }
+    
+    
+}
+
+//MARK: - PresenterUi
+extension NotesListViewController: PresenterUi {
+    func update() {
+        self.tableView.reloadData()
     }
 }

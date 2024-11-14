@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -10,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NotesListViewController" customModule="NotesApp" customModuleProvider="target">
             <connections>
+                <outlet property="containerView" destination="i5M-Pr-FkT" id="JJo-tk-ZJ7"/>
                 <outlet property="tableView" destination="V1y-rB-IbS" id="Hiw-xN-2fs"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -20,16 +22,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="V1y-rB-IbS">
-                    <rect key="frame" x="0.0" y="59" width="393" height="793"/>
+                    <rect key="frame" x="16" y="59" width="361" height="793"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="V1y-rB-IbS" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="3q2-du-uKh"/>
+                <constraint firstItem="V1y-rB-IbS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="JFI-CJ-ejd"/>
                 <constraint firstAttribute="bottom" secondItem="V1y-rB-IbS" secondAttribute="bottom" id="PSk-fC-ytU"/>
-                <constraint firstItem="V1y-rB-IbS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="iXn-Qg-6NJ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="V1y-rB-IbS" secondAttribute="trailing" constant="16" id="ixt-EQ-Vek"/>
                 <constraint firstItem="V1y-rB-IbS" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="j5P-gw-BRD"/>
                 <constraint firstItem="V1y-rB-IbS" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="sPd-Ea-HNr"/>
             </constraints>

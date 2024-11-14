@@ -17,7 +17,7 @@ enum StatusNotes {
 class NotesListPresenter {
     
      let dataProvider: DataProvider?
-     var ui: DataProviderUi?
+     var ui: PresenterUi?
     
     var tasks: [TaskList]
     
