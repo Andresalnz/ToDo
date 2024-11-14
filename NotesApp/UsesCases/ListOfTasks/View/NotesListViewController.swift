@@ -71,7 +71,7 @@ extension NotesListViewController: UITableViewDataSource, UITableViewDelegate {
             cellTask.configurePrint(with: task)
         
         }
-        
+        cellTask.selectionStyle = .none
         
         return cellTask
     }
