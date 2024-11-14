@@ -10,9 +10,8 @@ import UIKit
 class NotesListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet weak var toolbarView: UIToolbar!
     var presenter: NotesListPresenter?
-    
     @IBOutlet var containerView: UIView!
     var actions: [UIAction] = []
     var buttonsItem: [UIBarButtonItem] = []
@@ -24,8 +23,7 @@ class NotesListViewController: UIViewController {
         configureTable()
         createNavigationBar()
         createButtonsItem()
-        
-    
+        createButtonsItemsToolbar()
     }
     
     
@@ -129,14 +127,21 @@ extension NotesListViewController: ConfigurationNavigationBar, ConfigurationMenu
     }
 }
 
-extension NotesListViewController: ConnfigurationToolbar {
-    func configure(_ hidden: Bool, _ animated: Bool) {
-        let buttonMenu = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: self, action: nil)
-        toolbarItems = [UIBarButtonItem(systemItem: .flexibleSpace),buttonMenu]
-        self.navigationController?.setToolbarHidden(false, animated: true)
+//MARK: - ConnfigurationToolbar
+extension NotesListViewController: ConfigurationToolbar {
+    func configureToolbar(_ arrayButtons: [UIBarButtonItem]) {
+        toolbarItems = arrayButtons
+        toolbarView.items = toolbarItems
+        toolbarView.backgroundColor = .systemGray6
     }
     
-    
+    func createButtonsItemsToolbar() {
+        var buttons: [UIBarButtonItem] = []
+        let buttonSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let buttonAdd = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil)
+        buttons.append(contentsOf: [buttonSpace, buttonAdd])
+        configureToolbar(buttons)
+    }
 }
 
 //MARK: - PresenterUi

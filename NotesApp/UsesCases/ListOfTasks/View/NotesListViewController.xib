@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="containerView" destination="i5M-Pr-FkT" id="JJo-tk-ZJ7"/>
                 <outlet property="tableView" destination="V1y-rB-IbS" id="Hiw-xN-2fs"/>
+                <outlet property="toolbarView" destination="W0S-23-vhd" id="ziu-p6-3Xv"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -22,18 +23,26 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="V1y-rB-IbS">
-                    <rect key="frame" x="16" y="59" width="361" height="793"/>
+                    <rect key="frame" x="16" y="59" width="361" height="710"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W0S-23-vhd">
+                    <rect key="frame" x="0.0" y="769" width="393" height="49"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <items/>
+                </toolbar>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="W0S-23-vhd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="9A7-3H-DQu"/>
                 <constraint firstItem="V1y-rB-IbS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="JFI-CJ-ejd"/>
-                <constraint firstAttribute="bottom" secondItem="V1y-rB-IbS" secondAttribute="bottom" id="PSk-fC-ytU"/>
+                <constraint firstItem="W0S-23-vhd" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="RTD-xn-k5M"/>
+                <constraint firstItem="W0S-23-vhd" firstAttribute="top" secondItem="V1y-rB-IbS" secondAttribute="bottom" id="gjp-at-Nzh"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="V1y-rB-IbS" secondAttribute="trailing" constant="16" id="ixt-EQ-Vek"/>
                 <constraint firstItem="V1y-rB-IbS" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="j5P-gw-BRD"/>
                 <constraint firstItem="V1y-rB-IbS" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="sPd-Ea-HNr"/>
+                <constraint firstItem="W0S-23-vhd" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="yBm-83-qty"/>
             </constraints>
             <point key="canvasLocation" x="130.53435114503816" y="-11.267605633802818"/>
         </view>
