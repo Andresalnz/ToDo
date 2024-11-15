@@ -29,20 +29,24 @@ class NotesListPresenter {
        
     }
     
-    func viewDidLoad() {
-        fetchTasks()
-        
+    func numberNotes() -> Int {
+        do {
+            if let numberNotes = try dataProvider?.fetchTasks()?.count {
+                return numberNotes
+            }
+        } catch let err {
+            print("error pintando toda las tareas \(err.localizedDescription)")
+        }
+     return 0
     }
     
-    func fetchTasks() {
+    func fetchTasks() -> [TaskList]? {
         do {
-            let data = try dataProvider?.fetchTasks()
-            tasks = data ?? []
-            
-            
+            return try dataProvider?.fetchTasks()
         } catch let err {
             print("Error pintando toda las tareas \(err.localizedDescription)")
             //Alerta
+            return []
         }
     }
     

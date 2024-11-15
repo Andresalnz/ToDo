@@ -19,7 +19,6 @@ class NotesListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter?.viewDidLoad()
         configureTable()
         createNavigationBar()
         createButtonsItem()
@@ -59,7 +58,7 @@ extension NotesListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let rowsInSection = presenter?.tasks.count {
+        if let rowsInSection = presenter?.numberNotes() {
             return rowsInSection
         }
         return 1
@@ -67,10 +66,11 @@ extension NotesListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cellTask: NoteTableViewCell = tableView.dequeueReusableCell(withIdentifier: NoteTableViewCell.identifier, for: indexPath) as? NoteTableViewCell else { return UITableViewCell() }
-        if let task = presenter?.tasks[indexPath.row] {
-            cellTask.configurePrint(with: task)
         
-        }
+        let notes = presenter?.fetchTasks()
+        let note = notes?[indexPath.row]
+        
+        cellTask.task.text = note?.name
         cellTask.selectionStyle = .none
         
         return cellTask
