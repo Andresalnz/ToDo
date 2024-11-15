@@ -10,14 +10,16 @@ import CoreData
 
 protocol DataProviderProtocol {
     func addTask(type: String, title: String, detail: String) throws
-    func fetchTasks() throws -> [TaskList]
+    func fetchTasks() throws -> [TaskList]?
     func save() throws
     func delete(task: TaskList) throws
-   
+    func configurarFetchedResultsController()
 }
 
-class DataProvider {
+class DataProvider: NSObject {
    
+    //MARK: - NSFetchedResultsController
+    var fetchedResultsController: NSFetchedResultsController<TaskList>?
     
     //MARK: - Singleton
     static let shared = DataProvider()
@@ -30,7 +32,7 @@ class DataProvider {
         return container.viewContext
     }
     
-    init() {
+    override init() {
         self.container = NSPersistentContainer(name: "NotesAppModel")
         self.container.persistentStoreDescriptions.first?.type = NSSQLiteStoreType
         self.container.loadPersistentStores { _, error in
@@ -38,15 +40,23 @@ class DataProvider {
                 fatalError("Failed to load persistent stores: \(error)")
             }
         }
-        
+        super.init()
+        configurarFetchedResultsController()
     }
 
 }
 
 
 
-//MARK: - DataProviderProtocol
-extension DataProvider: DataProviderProtocol {
+//MARK: - DataProviderProtocol, NSFetchedResultsControllerDelegate
+extension DataProvider: DataProviderProtocol, NSFetchedResultsControllerDelegate {
+    
+    func configurarFetchedResultsController()  {
+        let request: NSFetchRequest<TaskList> = TaskList.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController?.delegate = self
+    }
     //MARK: - CRUD
     func save() throws {
         if context.hasChanges {
@@ -67,9 +77,9 @@ extension DataProvider: DataProviderProtocol {
         try save()
     }
     
-    func fetchTasks() throws -> [TaskList] {
-        let request: NSFetchRequest<TaskList> = TaskList.fetchRequest()
-        return try context.fetch(request)
+    func fetchTasks() throws -> [TaskList]?  {
+        try fetchedResultsController?.performFetch()
+        return fetchedResultsController?.fetchedObjects
     }
     
 
