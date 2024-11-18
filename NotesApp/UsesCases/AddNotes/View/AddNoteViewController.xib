@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -10,10 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddNoteViewController" customModule="NotesApp" customModuleProvider="target">
             <connections>
-                <outlet property="descriptionTextField" destination="H5i-aH-CjH" id="UTc-Bv-vLI"/>
-                <outlet property="nameTextField" destination="gU1-wa-lii" id="Gf5-ve-zQM"/>
-                <outlet property="saveButton" destination="D5L-ef-VqO" id="ClG-fy-0l1"/>
-                <outlet property="stackView" destination="BHm-U5-GXZ" id="iDP-Qk-wix"/>
+                <outlet property="descriptionTextView" destination="yGM-D2-2lD" id="Wz7-US-mj7"/>
+                <outlet property="stackView" destination="cu1-Sv-RJf" id="oOc-kM-edE"/>
+                <outlet property="titleTextField" destination="Pjd-PE-Rsm" id="Sf0-6C-GKy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -22,52 +22,43 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="BHm-U5-GXZ">
-                    <rect key="frame" x="0.0" y="326" width="393" height="202.33333333333337"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="cu1-Sv-RJf">
+                    <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <subviews>
-                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gU1-wa-lii">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="56"/>
-                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pjd-PE-Rsm">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="56" id="IGc-2e-xLO"/>
+                                <constraint firstAttribute="height" constant="50" id="DvT-0o-rIx"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="H5i-aH-CjH">
-                            <rect key="frame" x="0.0" y="84" width="393" height="56"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="56" id="F5t-NI-pML"/>
-                            </constraints>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yGM-D2-2lD">
+                            <rect key="frame" x="0.0" y="60" width="393" height="699"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                            <color key="textColor" systemColor="labelColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </textField>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D5L-ef-VqO">
-                            <rect key="frame" x="0.0" y="168" width="393" height="34.333333333333343"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="34.333333333333343" id="Mdd-bZ-hcQ"/>
-                            </constraints>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                            <connections>
-                                <action selector="saveButtonAction:" destination="-1" eventType="touchUpInside" id="5do-MJ-Ytb"/>
-                            </connections>
-                        </button>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
                     </subviews>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="BHm-U5-GXZ" secondAttribute="bottom" constant="267" id="31e-uS-6ez"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="BHm-U5-GXZ" secondAttribute="trailing" id="HTe-2i-FDI"/>
-                <constraint firstItem="BHm-U5-GXZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="OUj-Fi-oyq"/>
-                <constraint firstItem="BHm-U5-GXZ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="267" id="Pgp-y3-LLq"/>
+                <constraint firstItem="cu1-Sv-RJf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="7nt-9A-dcg"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="cu1-Sv-RJf" secondAttribute="bottom" id="Qfl-iC-D0l"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cu1-Sv-RJf" secondAttribute="trailing" id="nU6-sf-m8a"/>
+                <constraint firstItem="cu1-Sv-RJf" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="tRa-dc-c1d"/>
             </constraints>
             <point key="canvasLocation" x="22" y="-11"/>
         </view>
     </objects>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
