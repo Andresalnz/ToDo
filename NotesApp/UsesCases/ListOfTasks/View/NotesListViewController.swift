@@ -68,9 +68,9 @@ extension NotesListViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cellTask: NoteTableViewCell = tableView.dequeueReusableCell(withIdentifier: NoteTableViewCell.identifier, for: indexPath) as? NoteTableViewCell else { return UITableViewCell() }
         
         let notes = presenter?.fetchTasks()
-        let note = notes?[indexPath.row]
+        guard let note = notes?[indexPath.row] else { return UITableViewCell() }
         
-        cellTask.task.text = note?.name
+        cellTask.configurePrint(with: note)
         cellTask.selectionStyle = .none
         
         return cellTask
