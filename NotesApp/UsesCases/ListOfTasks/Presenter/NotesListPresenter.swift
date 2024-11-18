@@ -7,13 +7,6 @@
 
 import Foundation
 
-
-enum StatusNotes {
-    case loading
-    case loaded
-    case error
-}
-
 class NotesListPresenter {
     
      let dataProvider: DataProvider?
@@ -21,7 +14,6 @@ class NotesListPresenter {
     
     var tasks: [TaskList]
     
-    var status: ((StatusNotes) -> Void)?
     
     init(dataProvider: DataProvider?, tasks: [TaskList] = []) {
         self.dataProvider = dataProvider
