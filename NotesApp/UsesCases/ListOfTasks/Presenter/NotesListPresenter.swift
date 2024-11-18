@@ -11,14 +11,15 @@ class NotesListPresenter {
     
      let dataProvider: DataProvider?
      var ui: PresenterUi?
-    
+    var router: NoteListRouter?
+        
     var tasks: [TaskList]
     
     
-    init(dataProvider: DataProvider?, tasks: [TaskList] = []) {
+    init(dataProvider: DataProvider?, tasks: [TaskList] = [], router: NoteListRouter?) {
         self.dataProvider = dataProvider
         self.tasks = tasks
-       
+        self.router = router
     }
     
     func numberNotes() -> Int {
@@ -45,5 +46,10 @@ class NotesListPresenter {
     func deleteTask(at index: Int) throws {
        try dataProvider?.delete(task: tasks[index])
         ui?.update()
+    }
+    
+    
+    func buttonAddNote() {
+        router?.showAddNote()
     }
 }

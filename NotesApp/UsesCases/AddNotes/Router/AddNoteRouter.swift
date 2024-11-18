@@ -6,3 +6,15 @@
 //
 
 import Foundation
+import UIKit
+
+class AddNoteRouter {
+    func showAddNote(_ viewController: UIViewController?) {
+        let interactor = DataProvider()
+        let presenter = AddTaskPresenter(interactor: interactor)
+        let view = AddNoteViewController()
+        presenter.interactor = interactor
+        view.presenter = presenter
+        viewController?.navigationController?.pushViewController(view, animated: true)
+    }
+}

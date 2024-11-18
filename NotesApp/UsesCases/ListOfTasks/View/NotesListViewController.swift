@@ -37,18 +37,10 @@ class NotesListViewController: UIViewController {
         tableView.register(nib, forCellReuseIdentifier: NoteTableViewCell.identifier)
     }
     
-    @IBAction func addTaskButtonAction(_ sender: Any) {
-        router()
+   @objc func pushScreenaddNote() {
+        presenter?.buttonAddNote()
     }
     
-    func router() {
-        let interactor = DataProvider()
-        let presenter = AddTaskPresenter(interactor: interactor)
-        let view = AddNoteViewController()
-        view.ui = self
-        view.presenter = presenter
-        navigationController?.pushViewController(view, animated: true)
-    }
 }
 
 //MARK: - UITableViewDataSource, UITableViewDelegate
@@ -138,7 +130,7 @@ extension NotesListViewController: ConfigurationToolbar {
     func createButtonsItemsToolbar() {
         var buttons: [UIBarButtonItem] = []
         let buttonSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let buttonAdd = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil)
+        let buttonAdd = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: #selector(pushScreenaddNote))
         buttons.append(contentsOf: [buttonSpace, buttonAdd])
         configureToolbar(buttons)
     }

@@ -14,7 +14,7 @@ class NoteListRouter {
     
     func router(window: UIWindow?) {
         let interactor = DataProvider()
-        let presenter = NotesListPresenter(dataProvider: interactor)
+        let presenter = NotesListPresenter(dataProvider: interactor, router: self)
         let view =  NotesListViewController()
         notesList = view
         presenter.ui = notesList
@@ -24,5 +24,11 @@ class NoteListRouter {
         window?.rootViewController = navMain
         navMain.pushViewController(notesList ?? NotesListViewController(), animated: true)
         window?.makeKeyAndVisible()
+    }
+    
+    func showAddNote() {
+        let addNoteRouter = AddNoteRouter()
+        guard let vc = notesList else { return }
+        addNoteRouter.showAddNote(vc)
     }
 }
