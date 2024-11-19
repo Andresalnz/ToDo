@@ -9,11 +9,10 @@ import Foundation
 import UIKit
 
 protocol ConfigurationNavigationBar {
-    func createButtonsItem()
     func createNavigationBar()
 }
 
 protocol ConfigurationMenuButtonItem {
-    func createAndConfigureMenuButtonItem(button: UIBarButtonItem)
-    func createAcctionMenu()
+    func createButtonsItem()
+    func createAcctionsAndMenu(button: UIBarButtonItem)
 }
