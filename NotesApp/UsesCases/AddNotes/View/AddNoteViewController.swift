@@ -72,7 +72,7 @@ class AddNoteViewController: UIViewController {
             if let title = titleTextField.text, !title.isEmpty, let description = descriptionTextView.text, !description.isEmpty {
                 try presenter?.addNote(title: title, descriptionNote: description, date: .now)
                 navigationController?.popViewController(animated: true)
-               
+                ui?.update()
             } else {
                 print("Vacio") //Alerta
             }
