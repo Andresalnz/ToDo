@@ -68,27 +68,27 @@ extension NotesListViewController: UITableViewDataSource, UITableViewDelegate {
         return cellTask
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let task = presenter?.tasks[indexPath.row]
-        
-        let interactor = DataProvider()
-        let presenter = EditNotePresenter(interactor: interactor)
-        let view = EditNoteViewController(task: task, nibName: String(describing: EditNoteViewController.self), bundle: nil)
-        view.ui = self
-        view.presenter = presenter
-        navigationController?.pushViewController(view, animated: true)
-    }
-    
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        do {
-            try presenter?.deleteTask(at: indexPath.row)
-        } catch let err {
-            print("Error al borrar la tarea: \(err.localizedDescription)")
-        }
-        
-        
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let task = presenter?.tasks[indexPath.row]
+//        
+//        let interactor = DataProvider()
+//        let presenter = EditNotePresenter(interactor: interactor)
+//        let view = EditNoteViewController(task: task, nibName: String(describing: EditNoteViewController.self), bundle: nil)
+//        view.ui = self
+//        view.presenter = presenter
+//        navigationController?.pushViewController(view, animated: true)
+//    }
+//    
+//    
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        do {
+//            try presenter?.deleteTask(at: indexPath.row)
+//        } catch let err {
+//            print("Error al borrar la tarea: \(err.localizedDescription)")
+//        }
+//        
+//        
+//    }
 }
 
 //MARK: - ConfigurationNavigationBar, ConfigurationMenuButtonItem
