@@ -93,25 +93,22 @@ extension NotesListViewController: UITableViewDataSource, UITableViewDelegate {
 
 //MARK: - ConfigurationNavigationBar, ConfigurationMenuButtonItem
 extension NotesListViewController: ConfigurationNavigationBar, ConfigurationMenuButtonItem {
-    func createAndConfigureMenuButtonItem(button: UIBarButtonItem) {
-        let menu = UIMenu(title: "", options: .destructive, children: actions)
-        button.menu = menu
-    }
-    
-    
     func createButtonsItem() {
         let buttonMenu = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: self, action: nil)
         buttonsItem.append(contentsOf: [buttonMenu])
         self.navigationItem.setRightBarButtonItems(buttonsItem, animated: true)
-        createAcctionMenu()
-        createAndConfigureMenuButtonItem(button: buttonMenu)
+        
+        createAcctionsAndMenu(button: buttonMenu)
     }
     
-    func createAcctionMenu() {
+    func createAcctionsAndMenu(button: UIBarButtonItem) {
         let action1 = UIAction(title: "Action 1", image: UIImage(systemName: "star"), handler: { _ in print("1") })
         let action2 = UIAction(title: "Action 1", image: UIImage(systemName: "star"), handler: { _ in print("2") })
         let action3 = UIAction(title: "Action 1", image: UIImage(systemName: "star"), handler: { _ in print("3") })
         actions.append(contentsOf: [action1, action2, action3])
+        
+        let menu = UIMenu(title: "", options: .destructive, children: actions)
+        button.menu = menu
     }
     
     func createNavigationBar() {
