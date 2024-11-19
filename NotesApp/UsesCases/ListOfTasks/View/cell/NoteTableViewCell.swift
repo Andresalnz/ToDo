@@ -26,7 +26,7 @@ class NoteTableViewCell: UITableViewCell {
     }
     
     
-    func configurePrint(with task: TaskList) {
-        self.task.text = task.name
+    func configurePrint(with task: ListNotes) {
+        self.task.text = task.title
     }
 }

@@ -13,10 +13,10 @@ class NotesListPresenter {
      var ui: PresenterUi?
     var router: NoteListRouter?
         
-    var tasks: [TaskList]
+    var tasks: [ListNotes]
     
     
-    init(dataProvider: DataProvider?, tasks: [TaskList] = [], router: NoteListRouter?) {
+    init(dataProvider: DataProvider?, tasks: [ListNotes] = [], router: NoteListRouter?) {
         self.dataProvider = dataProvider
         self.tasks = tasks
         self.router = router
@@ -33,7 +33,7 @@ class NotesListPresenter {
      return 0
     }
     
-    func fetchTasks() -> [TaskList]? {
+    func fetchTasks() -> [ListNotes]? {
         do {
             return try dataProvider?.fetchTasks()
         } catch let err {
@@ -44,7 +44,7 @@ class NotesListPresenter {
     }
     
     func deleteTask(at index: Int) throws {
-       try dataProvider?.delete(task: tasks[index])
+       try dataProvider?.delete(note: tasks[index])
         ui?.update()
     }
     

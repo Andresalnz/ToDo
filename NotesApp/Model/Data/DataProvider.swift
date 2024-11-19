@@ -9,17 +9,17 @@ import Foundation
 import CoreData
 
 protocol DataProviderProtocol {
-    func addTask(type: String, title: String, detail: String) throws
-    func fetchTasks() throws -> [TaskList]?
+    func addNote(type: String, title: String, descriptionNote: String, dateNote: Date) throws
+    func fetchTasks() throws -> [ListNotes]?
     func save() throws
-    func delete(task: TaskList) throws
+    func delete(note: ListNotes) throws
     func configurarFetchedResultsController()
 }
 
 class DataProvider: NSObject {
    
     //MARK: - NSFetchedResultsController
-    var fetchedResultsController: NSFetchedResultsController<TaskList>?
+    var fetchedResultsController: NSFetchedResultsController<ListNotes>?
     
     //MARK: - Singleton
     static let shared = DataProvider()
@@ -50,10 +50,9 @@ class DataProvider: NSObject {
 
 //MARK: - DataProviderProtocol, NSFetchedResultsControllerDelegate
 extension DataProvider: DataProviderProtocol, NSFetchedResultsControllerDelegate {
-    
     func configurarFetchedResultsController()  {
-        let request: NSFetchRequest<TaskList> = TaskList.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        let request: NSFetchRequest<ListNotes> = ListNotes.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController?.delegate = self
     }
@@ -64,28 +63,28 @@ extension DataProvider: DataProviderProtocol, NSFetchedResultsControllerDelegate
         }
     }
     
-    func addTask(type: String, title: String, detail: String) throws {
-        guard let entityDescription = NSEntityDescription.entity(forEntityName:"TaskList", in: context) else {
+    func addNote(type: String, title: String, descriptionNote: String, dateNote: Date) throws {
+        guard let entityDescription = NSEntityDescription.entity(forEntityName:"ListNotes", in: context) else {
             return
         }
         
-        
-        let task = TaskList(entity: entityDescription, insertInto: context)
-        task.name = title
-        task.detail = detail
+        let task = ListNotes(entity: entityDescription, insertInto: context)
+        task.title = title
+        task.descriptionNote = descriptionNote
+        task.date = dateNote
         
         try save()
     }
     
-    func fetchTasks() throws -> [TaskList]?  {
+    func fetchTasks() throws -> [ListNotes]?  {
         try fetchedResultsController?.performFetch()
         return fetchedResultsController?.fetchedObjects
     }
     
 
     
-    func delete(task: TaskList) throws {
-        context.delete(task)
+    func delete(note: ListNotes) throws {
+        context.delete(note)
         try save()
     }
 }
