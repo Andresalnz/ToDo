@@ -11,7 +11,7 @@ import UIKit
 class AddNoteRouter {
     func showAddNote(_ viewController: UIViewController?) {
         let interactor = DataProvider()
-        let presenter = AddTaskPresenter(interactor: interactor)
+        let presenter = AddNotePresenter(interactor: interactor)
         let view = AddNoteViewController()
         presenter.interactor = interactor
         view.presenter = presenter
