@@ -15,6 +15,7 @@ class AddNoteRouter {
         let view = AddNoteViewController()
         presenter.interactor = interactor
         view.presenter = presenter
+        view.ui = viewController as? NotesListViewController
         viewController?.navigationController?.pushViewController(view, animated: true)
     }
 }
