@@ -91,9 +91,8 @@ class AddNoteViewController: UIViewController {
                 print("Vacio") //Alerta
             }
             
-        } catch let err {
-            print("Error en guardar \(err.localizedDescription)")
-            //alerta
+        } catch {
+            showAlertOK("Error", "Please enter a title", "OK", .default, {_ in self.titleTextField.becomeFirstResponder()})
         }
     }
     
@@ -137,9 +136,7 @@ extension AddNoteViewController: ConfigurationMenuButtonItem, ConfigurationNavig
 extension AddNoteViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let text = textField.text, !text.isEmpty else {
-            let alert = UIAlertController(title: "Error", message: "Please enter a title", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in self.titleTextField.becomeFirstResponder() }))
-            self.navigationController?.present(alert, animated: true, completion: nil)
+            showAlertOK("Error", "Please enter a title", "OK", .default, {_ in self.titleTextField.becomeFirstResponder()})
             return false
         }
         
@@ -154,9 +151,7 @@ extension AddNoteViewController: UITextFieldDelegate {
 extension AddNoteViewController: UITextViewDelegate {
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         guard let text = titleTextField.text, !text.isEmpty else {
-            let alert = UIAlertController(title: "Error", message: "Please enter a title", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in self.titleTextField.becomeFirstResponder() }))
-            self.navigationController?.present(alert, animated: true, completion: nil)
+            showAlertOK("Error", "Please enter a title", "OK", .default, {_ in self.titleTextField.becomeFirstResponder()})
             
             return false
         }
