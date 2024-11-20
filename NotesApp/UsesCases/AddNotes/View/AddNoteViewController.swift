@@ -23,6 +23,7 @@ class AddNoteViewController: UIViewController {
         createNavigationBar()
         configureView()
         observerKeyBoard()
+        actionBackButton()
     }
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -33,6 +34,16 @@ class AddNoteViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+//MARK: - Back Button
+    func actionBackButton() {
+        self.navigationController?.topViewController?.navigationItem.backAction = UIAction(title: "", state: .mixed, handler: { _ in
+            if self.titleTextField.text?.isEmpty == true {
+                self.navigationController?.popViewController(animated: true)
+            } else {
+                self.doneButtonAction()
+            }
+        })
+    }
     
     //MARK: - Keyboard. Scroll TextView
     func observerKeyBoard() {
