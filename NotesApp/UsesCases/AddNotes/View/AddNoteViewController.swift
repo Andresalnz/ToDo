@@ -21,15 +21,8 @@ class AddNoteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         createNavigationBar()
-        configureTextField()
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillShow),
-                                               name: UIResponder.keyboardWillShowNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillHide),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
+        configureView()
+        observerKeyBoard()
     }
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -40,7 +33,20 @@ class AddNoteViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     //MARK: - Keyboard. Scroll TextView
+    func observerKeyBoard() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+        
+    }
+
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardHeight = keyboardFrame.cgRectValue.height
@@ -56,15 +62,23 @@ class AddNoteViewController: UIViewController {
         descriptionTextView.scrollIndicatorInsets = .zero
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    func configureTextField() {
+    func configureView() {
         titleTextField.delegate = self
         descriptionTextView.delegate = self
         self.titleTextField.becomeFirstResponder()
-
+        style()
+    }
+    
+//MARK: - Styles
+    func style() {
+        //StackView
+        stackView.spacing = 10
+        
+        //TextField
+        titleTextField.configureStyleTextField("Title", .RobotoRegular, .none, autoCapitalization: .sentences)
+        
+        //TextView
+        descriptionTextView.configureStyleTextView("Description", .RobotoLight, .lightGray, autoCapitalization: .sentences)
     }
     
     @objc func doneButtonAction() {
@@ -82,6 +96,11 @@ class AddNoteViewController: UIViewController {
             //alerta
         }
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
 }
 
 //MARK: - ConfigurationMenuButtonItem
@@ -129,14 +148,6 @@ extension AddNoteViewController: UITextFieldDelegate {
 
         return true
     }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.backgroundColor = .systemGray3
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.backgroundColor = .clear
-    }
 }
 
 //MARK: - UITextViewDelegate
@@ -149,17 +160,15 @@ extension AddNoteViewController: UITextViewDelegate {
             
             return false
         }
-        
-        descriptionTextView.backgroundColor = .systemGray3
-        
-        return true
-    }
-    
-   
-    
-    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        descriptionTextView.backgroundColor = .clear
+        descriptionTextView.text = nil
+        descriptionTextView.textColor = .black
         return true
     }
   
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if descriptionTextView.text.isEmpty {
+            descriptionTextView.text = "Description"
+            descriptionTextView.textColor = .lightGray
+        }
+    }
 }
