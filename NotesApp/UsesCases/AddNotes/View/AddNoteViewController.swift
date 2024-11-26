@@ -147,7 +147,7 @@ class AddNoteViewController: UIViewController {
                     showAlertOK("Error", "Not updated", "OK", .default, {_ in self.titleTextField.becomeFirstResponder()})
                 }
                 
-                print(editNote)
+             
         }
     }
     
