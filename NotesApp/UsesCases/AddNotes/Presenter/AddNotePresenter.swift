@@ -30,5 +30,8 @@ extension AddNotePresenter: AddNotePresenterProtocol {
        try interactor.addNote(type: NSSQLiteStoreType, title: title , descriptionNote: descriptionNote, dateNote: date)
     }
     
+    func isSave() throws {
+       try interactor.save()
+    }
     
 }
