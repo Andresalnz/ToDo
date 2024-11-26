@@ -18,6 +18,8 @@ class AddNoteViewController: UIViewController {
     var presenter: AddNotePresenter?
     var ui: PresenterUi?
     
+    let optionsAddOrEdit: NavigationOptionsToNote
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         createNavigationBar()
@@ -25,9 +27,10 @@ class AddNoteViewController: UIViewController {
         observerKeyBoard()
         actionBackButton()
     }
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    
+    init(optionsAddOrEdit: NavigationOptionsToNote, nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        self.optionsAddOrEdit = optionsAddOrEdit
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-       
     }
     
     required init?(coder: NSCoder) {
@@ -77,34 +80,78 @@ class AddNoteViewController: UIViewController {
         titleTextField.delegate = self
         descriptionTextView.delegate = self
         self.titleTextField.becomeFirstResponder()
-        style()
+        style(optionsAddOrEdit)
     }
     
 //MARK: - Styles
-    func style() {
-        //StackView
+    func style(_ options: NavigationOptionsToNote) {
+        
         stackView.spacing = 10
         
-        //TextField
-        titleTextField.configureStyleTextField("Title", .RobotoRegular, .none, autoCapitalization: .sentences)
-        
-        //TextView
-        descriptionTextView.configureStyleTextView("Description", .RobotoLight, .lightGray, autoCapitalization: .sentences)
+        switch options {
+            case .add :
+                titleTextField.configureStyleTextField("Title", nil, .RobotoRegular, .none, autoCapitalization: .sentences)
+                descriptionTextView.configureStyleTextView("Description", .RobotoLight, .lightGray, autoCapitalization: .sentences)
+                
+            case .edit(let editNote):
+                if let title = editNote.title, let descriptionNote = editNote.descriptionNote {
+                    titleTextField.configureStyleTextField(nil, title, .RobotoRegular, .none, autoCapitalization: .sentences)
+                    if descriptionNote.isEmpty {
+                        descriptionTextView.configureStyleTextView("Description", .RobotoLight, .lightGray, autoCapitalization: .sentences)
+                    } else {
+                        descriptionTextView.configureStyleTextView(descriptionNote, .RobotoLight, .black, autoCapitalization: .sentences)
+                    }
+                }
+        }
+    }
+    
+    func navigationOptionsNote(_ options: NavigationOptionsToNote) {
+        switch options {
+            case .add :
+                do {
+                    if descriptionTextView.textColor == .lightGray {
+                        descriptionTextView.text = ""
+                    }
+                    
+                    if let title = titleTextField.text, !title.isEmpty, let description = descriptionTextView.text {
+                        try presenter?.addNote(title: title, descriptionNote: description, date: .now)
+                        navigationController?.popViewController(animated: true)
+                        ui?.update()
+                    } else {
+                        showAlertOK("Error", "Please enter a title", "OK", .default, {_ in self.titleTextField.becomeFirstResponder()})
+                    }
+                } catch {
+                    showAlertOK("Error", "Please enter a title", "OK", .default, {_ in self.titleTextField.becomeFirstResponder()})
+                }
+                
+            case .edit(let editNote):
+                if descriptionTextView.textColor != .lightGray {
+                    editNote.descriptionNote = descriptionTextView.text
+                }
+                editNote.title = titleTextField.text
+                
+                do {
+                    guard let title = titleTextField.text, !title.isEmpty else {
+                        showAlertOK("Error", "Please enter a title", "OK", .default, {_ in self.titleTextField.becomeFirstResponder()})
+                        return
+                    }
+                    if editNote.isUpdated == true {
+                        try presenter?.isSave()
+                        navigationController?.popViewController(animated: true)
+                        self.ui?.update()
+                    } else {
+                        navigationController?.popViewController(animated: true)
+                    }
+                } catch {
+                    showAlertOK("Error", "Not updated", "OK", .default, {_ in self.titleTextField.becomeFirstResponder()})
+                }
+                
+                print(editNote)
+        }
     }
     
     @objc func doneButtonAction() {
-        do {
-            if let title = titleTextField.text, !title.isEmpty, let description = descriptionTextView.text {
-                try presenter?.addNote(title: title, descriptionNote: description, date: .now)
-                navigationController?.popViewController(animated: true)
-                ui?.update()
-            } else {
-                showAlertOK("Error", "Please enter a title", "OK", .default, {_ in self.titleTextField.becomeFirstResponder()})
-            }
-            
-        } catch {
-            showAlertOK("Error", "Please enter a title", "OK", .default, {_ in self.titleTextField.becomeFirstResponder()})
-        }
+        navigationOptionsNote(optionsAddOrEdit)
     }
     
     deinit {
@@ -166,8 +213,10 @@ extension AddNoteViewController: UITextViewDelegate {
             
             return false
         }
-        descriptionTextView.text = nil
-        descriptionTextView.textColor = .black
+        if textView.textColor == .lightGray {
+            descriptionTextView.text = nil
+            descriptionTextView.textColor = .black
+        }
         return true
     }
   
