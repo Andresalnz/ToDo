@@ -38,7 +38,7 @@ class NotesListViewController: UIViewController {
     }
     
    @objc func pushScreenaddNote() {
-        presenter?.buttonAddNote()
+       presenter?.addOrEditNote(note: nil)
     }
     
 }
@@ -68,16 +68,11 @@ extension NotesListViewController: UITableViewDataSource, UITableViewDelegate {
         return cellTask
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let task = presenter?.tasks[indexPath.row]
-//        
-//        let interactor = DataProvider()
-//        let presenter = EditNotePresenter(interactor: interactor)
-//        let view = EditNoteViewController(task: task, nibName: String(describing: EditNoteViewController.self), bundle: nil)
-//        view.ui = self
-//        view.presenter = presenter
-//        navigationController?.pushViewController(view, animated: true)
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let notes = presenter?.fetchTasks()
+        guard let note = notes?[indexPath.row] else { return }
+        presenter?.addOrEditNote(note: note)
+    }
 //    
 //    
 //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

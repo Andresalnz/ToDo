@@ -31,4 +31,10 @@ class NoteListRouter {
         guard let vc = notesList else { return }
         addNoteRouter.showAddNote(vc)
     }
+    
+    func showEditNote(note: ListNotes) {
+        let addNoteRouter = AddNoteRouter()
+        guard let vc = notesList else { return }
+        addNoteRouter.showEditNote(vc, note)
+    }
 }

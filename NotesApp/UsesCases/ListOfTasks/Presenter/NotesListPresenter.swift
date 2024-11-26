@@ -49,7 +49,12 @@ class NotesListPresenter {
     }
     
     
-    func buttonAddNote() {
-        router?.showAddNote()
+    func addOrEditNote(note: ListNotes?) {
+        if let note = note {
+            router?.showEditNote(note: note)
+        } else {
+            router?.showAddNote()
+        }
+        
     }
 }
