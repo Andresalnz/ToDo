@@ -126,28 +126,25 @@ class AddAndEditNoteViewController: UIViewController {
                 }
                 
             case .edit(let editNote):
-                if descriptionTextView.textColor != .lightGray {
-                    editNote.descriptionNote = descriptionTextView.text
-                }
-                editNote.title = titleTextField.text
-                
                 do {
                     guard let title = titleTextField.text, !title.isEmpty else {
                         showAlertOK("Error", "Please enter a title", "OK", .default, {_ in self.titleTextField.becomeFirstResponder()})
                         return
                     }
-                    if editNote.isUpdated == true {
-                        try presenter?.isSave()
-                        navigationController?.popViewController(animated: true)
-                        self.ui?.update()
+                    if descriptionTextView.textColor != .lightGray {
+                        try presenter?.editNote(title: titleTextField.text, descriptionNote: descriptionTextView.text, date: .now, note: editNote, {
+                            self.navigationController?.popViewController(animated: true)
+                            self.ui?.update()
+                        })
                     } else {
-                        navigationController?.popViewController(animated: true)
+                        try  presenter?.editNote(title: titleTextField.text, descriptionNote: nil, date: .now, note: editNote, {
+                            self.navigationController?.popViewController(animated: true)
+                            self.ui?.update()
+                        })
                     }
                 } catch {
                     showAlertOK("Error", "Not updated", "OK", .default, {_ in self.titleTextField.becomeFirstResponder()})
                 }
-                
-             
         }
     }
     

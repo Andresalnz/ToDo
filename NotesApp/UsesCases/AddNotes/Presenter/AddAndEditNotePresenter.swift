@@ -10,6 +10,7 @@ import CoreData
 
 protocol AddNotePresenterProtocol: AnyObject {
     func addNote(title: String?, descriptionNote: String?, date: Date) throws
+    func editNote(title: String?, descriptionNote: String?, date: Date, note: ListNotes, _ handler: (() -> Void)?) throws
 }
 
 class AddAndEditNotePresenter {
@@ -28,6 +29,25 @@ extension AddAndEditNotePresenter: AddNotePresenterProtocol {
             throw fatalError()
         }
        try interactor.addNote(type: NSSQLiteStoreType, title: title , descriptionNote: descriptionNote, dateNote: date)
+    }
+    
+    func editNote(title: String?, descriptionNote: String?, date: Date, note: ListNotes, _ handler: (() -> Void)?) throws {
+        if let descriptionNote = descriptionNote, descriptionNote != note.descriptionNote {
+            note.descriptionNote = descriptionNote
+        }
+        
+        if title != note.title {
+            note.title = title
+        }
+        
+        //note.date = date
+        print(note)
+        if note.isUpdated == true {
+            try isSave()
+            handler?()
+        } else {
+            handler?()
+        }
     }
     
     func isSave() throws {
