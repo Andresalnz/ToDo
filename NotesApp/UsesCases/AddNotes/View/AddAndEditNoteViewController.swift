@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddNoteViewController: UIViewController {
+class AddAndEditNoteViewController: UIViewController {
    
     
     
@@ -15,7 +15,7 @@ class AddNoteViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
     
-    var presenter: AddNotePresenter?
+    var presenter: AddAndEditNotePresenter?
     var ui: PresenterUi?
     
     let optionsAddOrEdit: NavigationOptionsToNote
@@ -162,7 +162,7 @@ class AddNoteViewController: UIViewController {
 }
 
 //MARK: - ConfigurationMenuButtonItem
-extension AddNoteViewController: ConfigurationMenuButtonItem, ConfigurationNavigationBar {
+extension AddAndEditNoteViewController: ConfigurationMenuButtonItem, ConfigurationNavigationBar {
     func createNavigationBar() {
         title = "New Note"
         createButtonsItem()
@@ -192,7 +192,7 @@ extension AddNoteViewController: ConfigurationMenuButtonItem, ConfigurationNavig
 }
 
 //MARK: - UITextFieldDelegate
-extension AddNoteViewController: UITextFieldDelegate {
+extension AddAndEditNoteViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let text = textField.text, !text.isEmpty else {
             showAlertOK("Error", "Please enter a title", "OK", .default, {_ in self.titleTextField.becomeFirstResponder()})
@@ -207,7 +207,7 @@ extension AddNoteViewController: UITextFieldDelegate {
 }
 
 //MARK: - UITextViewDelegate
-extension AddNoteViewController: UITextViewDelegate {
+extension AddAndEditNoteViewController: UITextViewDelegate {
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         guard let text = titleTextField.text, !text.isEmpty else {
             showAlertOK("Error", "Please enter a title", "OK", .default, {_ in self.titleTextField.becomeFirstResponder()})

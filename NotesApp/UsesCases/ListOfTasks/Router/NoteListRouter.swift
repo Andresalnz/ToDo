@@ -27,13 +27,13 @@ class NoteListRouter {
     }
     
     func showAddNote() {
-        let addNoteRouter = AddNoteRouter()
+        let addNoteRouter = AddAndEditNoteRouter()
         guard let vc = notesList else { return }
         addNoteRouter.showAddNote(vc)
     }
     
     func showEditNote(note: ListNotes) {
-        let addNoteRouter = AddNoteRouter()
+        let addNoteRouter = AddAndEditNoteRouter()
         guard let vc = notesList else { return }
         addNoteRouter.showEditNote(vc, note)
     }

@@ -12,7 +12,7 @@ protocol AddNotePresenterProtocol: AnyObject {
     func addNote(title: String?, descriptionNote: String?, date: Date) throws
 }
 
-class AddNotePresenter {
+class AddAndEditNotePresenter {
     
     
     var interactor: DataProvider = DataProvider()
@@ -22,7 +22,7 @@ class AddNotePresenter {
     }
 }
 
-extension AddNotePresenter: AddNotePresenterProtocol {
+extension AddAndEditNotePresenter: AddNotePresenterProtocol {
     func addNote(title: String?, descriptionNote: String?, date: Date) throws {
         guard let title = title, let descriptionNote = descriptionNote else {
             throw fatalError()

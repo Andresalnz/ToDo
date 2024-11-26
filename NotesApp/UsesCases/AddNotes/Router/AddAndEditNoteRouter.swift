@@ -8,11 +8,11 @@
 import Foundation
 import UIKit
 
-class AddNoteRouter {
+class AddAndEditNoteRouter {
     func showAddNote(_ viewController: UIViewController?) {
         let interactor = DataProvider()
-        let presenter = AddNotePresenter(interactor: interactor)
-        let view = AddNoteViewController(optionsAddOrEdit: .add, nibName: String(describing: AddNoteViewController.self), bundle: nil)
+        let presenter = AddAndEditNotePresenter(interactor: interactor)
+        let view = AddAndEditNoteViewController(optionsAddOrEdit: .add, nibName: String(describing: AddAndEditNoteViewController.self), bundle: nil)
         presenter.interactor = interactor
         view.presenter = presenter
         view.ui = viewController as? NotesListViewController
@@ -21,8 +21,8 @@ class AddNoteRouter {
     
     func showEditNote(_ viewController: UIViewController?, _ note: ListNotes) {
         let interactor = DataProvider()
-        let presenter = AddNotePresenter(interactor: interactor)
-        let view = AddNoteViewController(optionsAddOrEdit: .edit(note), nibName: String(describing: AddNoteViewController.self), bundle: nil)
+        let presenter = AddAndEditNotePresenter(interactor: interactor)
+        let view = AddAndEditNoteViewController(optionsAddOrEdit: .edit(note), nibName: String(describing: AddAndEditNoteViewController.self), bundle: nil)
         presenter.interactor = interactor
         view.presenter = presenter
         view.ui = viewController as? NotesListViewController
