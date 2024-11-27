@@ -13,12 +13,11 @@ class NotesListPresenter {
      var ui: PresenterUi?
     var router: NoteListRouter?
         
-    var tasks: [ListNotes]
+
     
     
     init(dataProvider: DataProvider?, tasks: [ListNotes] = [], router: NoteListRouter?) {
         self.dataProvider = dataProvider
-        self.tasks = tasks
         self.router = router
     }
     
@@ -43,9 +42,13 @@ class NotesListPresenter {
         }
     }
     
-    func deleteTask(at index: Int) throws {
-       try dataProvider?.delete(note: tasks[index])
-        ui?.update()
+    func deleteTask(note: ListNotes) throws {
+        do {
+            try dataProvider?.delete(note: note)
+            ui?.update()
+        } catch {
+            print("No se ha podido borrar la nota")
+        }
     }
     
     
