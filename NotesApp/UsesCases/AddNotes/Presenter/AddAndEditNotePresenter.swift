@@ -17,6 +17,7 @@ class AddAndEditNotePresenter {
     
     
     var interactor: DataProvider = DataProvider()
+    var ui: PresenterUi?
     
     init(interactor: DataProvider) {
         self.interactor = interactor
@@ -52,6 +53,15 @@ extension AddAndEditNotePresenter: AddNotePresenterProtocol {
     
     func isSave() throws {
        try interactor.save()
+    }
+    
+    func deleteTask(idNote: ListNotes) throws {
+        do {
+            try interactor.delete(note: idNote)
+            ui?.update()
+        } catch {
+            print("No se ha podido borrar la nota")
+        }
     }
     
 }

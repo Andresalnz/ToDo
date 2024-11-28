@@ -18,7 +18,9 @@ class AddAndEditNoteViewController: UIViewController {
     var presenter: AddAndEditNotePresenter?
     var ui: PresenterUi?
     
-    let optionsAddOrEdit: NavigationOptionsToNote
+    let optionsRoute: OptionsRoute
+    
+    let note: ListNotes?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +30,9 @@ class AddAndEditNoteViewController: UIViewController {
         actionBackButton()
     }
     
-    init(optionsAddOrEdit: NavigationOptionsToNote, nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        self.optionsAddOrEdit = optionsAddOrEdit
+    init(note: ListNotes? = nil, optionsRoute: OptionsRoute, nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        self.note = note
+        self.optionsRoute = optionsRoute
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
@@ -81,15 +84,15 @@ class AddAndEditNoteViewController: UIViewController {
         titleTextField.delegate = self
         descriptionTextView.delegate = self
         self.titleTextField.becomeFirstResponder()
-        style(optionsAddOrEdit)
+        style()
     }
     
 //MARK: - Styles
-    func style(_ options: NavigationOptionsToNote) {
+    func style() {
         
         stackView.spacing = 10
         
-        switch options {
+        switch optionsRoute {
             case .add :
                 titleTextField.configureStyleTextField("Title", nil, .RobotoRegular, .none, autoCapitalization: .sentences)
                 descriptionTextView.configureStyleTextView("Description", .RobotoLight, .lightGray, autoCapitalization: .sentences)
@@ -106,8 +109,8 @@ class AddAndEditNoteViewController: UIViewController {
         }
     }
     
-    func navigationOptionsNote(_ options: NavigationOptionsToNote) {
-        switch options {
+    func navigationOptionsNote(_ optionsActions: OptionsActionsAddEditOrDelete) {
+        switch optionsActions {
             case .add :
                 do {
                     if descriptionTextView.textColor == .lightGray {
@@ -145,13 +148,31 @@ class AddAndEditNoteViewController: UIViewController {
                 } catch {
                     showAlertOK("Error", "Not updated", "OK", .default, {_ in self.titleTextField.becomeFirstResponder()})
                 }
+            case .delete(let deleteNote):
+                deleteAction()
         }
     }
     
     @objc func doneButtonAction() {
-        navigationOptionsNote(optionsAddOrEdit)
+        switch optionsRoute {
+            case .edit(let editNote):
+                navigationOptionsNote(.edit(editNote))
+            case .add:
+                navigationOptionsNote(.add)
+        }
     }
     
+    func deleteAction() {
+        do {
+            if let note = note {
+                try presenter?.deleteTask(idNote: note)
+            }
+            navigationController?.popViewController(animated: true)
+        } catch  {
+            print("no ha borrado")
+        }
+       
+    }
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -178,9 +199,15 @@ extension AddAndEditNoteViewController: ConfigurationMenuButtonItem, Configurati
     
     func createAcctionsAndMenu(button: UIBarButtonItem) {
         var actions: [UIAction] = []
-        let action1 = UIAction(title: "Action 1", image: UIImage(systemName: "star"), handler: { _ in print("1") })
+        let imageTrash = UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)
+        let action1 = UIAction(title: "Action 1", image: UIImage(systemName: "star"), handler: { _ in print("1099") })
         let action2 = UIAction(title: "Action 1", image: UIImage(systemName: "star"), handler: { _ in print("2") })
-        let action3 = UIAction(title: "Action 1", image: UIImage(systemName: "star"), handler: { _ in print("3") })
+        let action3 = UIAction(title: "Delete", image: imageTrash, handler: { _ in
+            if let note = self.note {
+                self.navigationOptionsNote(.delete(note))
+            }
+        })
+        
         actions.append(contentsOf: [action1, action2, action3])
         
         let menu = UIMenu(title: "", options: .destructive, children: actions)

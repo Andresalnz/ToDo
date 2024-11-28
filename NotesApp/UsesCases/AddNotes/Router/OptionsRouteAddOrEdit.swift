@@ -7,7 +7,13 @@
 
 import Foundation
 
-enum NavigationOptionsToNote {
+enum OptionsRoute {
     case edit(ListNotes)
     case add
+}
+
+enum OptionsActionsAddEditOrDelete {
+    case edit(ListNotes)
+    case add
+    case delete(ListNotes)
 }
