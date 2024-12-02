@@ -44,8 +44,8 @@ class AddAndEditNoteViewController: UIViewController {
     func actionBackButton() {
         self.navigationController?.topViewController?.navigationItem.backAction = UIAction(title: "", state: .mixed, handler: { _ in
             if self.titleTextField.text?.isEmpty == true {
-                self.navigationController?.popViewController(animated: true)
                 self.showAlertOK("Error", "Please enter a title, was not saved", "OK", .default, {_ in self.titleTextField.becomeFirstResponder()})
+                self.navigationController?.popViewController(animated: true)
             } else {
                 self.doneButtonAction()
             }
@@ -203,9 +203,13 @@ extension AddAndEditNoteViewController: ConfigurationMenuButtonItem, Configurati
         let action1 = UIAction(title: "Action 1", image: UIImage(systemName: "star"), handler: { _ in print("1099") })
         let action2 = UIAction(title: "Action 1", image: UIImage(systemName: "star"), handler: { _ in print("2") })
         let action3 = UIAction(title: "Delete", image: imageTrash, handler: { _ in
-            if let note = self.note {
-                self.navigationOptionsNote(.delete(note))
-            }
+            self.showAlertTwoOptions("Are you sure you want to delete this note?", "Remove", .destructive, { _ in
+                if let note = self.note {
+                    self.navigationOptionsNote(.delete(note))
+                }
+            }, "Cancel", .cancel, nil)
+            
+            
         })
         
         actions.append(contentsOf: [action1, action2, action3])

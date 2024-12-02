@@ -76,12 +76,27 @@ extension NotesListViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        do {
-            let notes = presenter?.fetchTasks()
-            guard let note = notes?[indexPath.row] else { return }
-            try presenter?.deleteTask(note: note)
-        } catch let err {
-            print("Error al borrar la tarea: \(err.localizedDescription)")
+        
+        switch editingStyle {
+                
+            case .none:
+                print("none")
+            case .delete:
+                showAlertTwoOptions("Are you sure you want to delete this note?", "Remove", .destructive, { _ in
+                    do {
+                        let notes = self.presenter?.fetchTasks()
+                        guard let note = notes?[indexPath.row] else { return }
+                        try self.presenter?.deleteTask(note: note)
+                        tableView.deleteRows(at: [indexPath], with: .right)
+                    } catch let err {
+                        print("Error al borrar la tarea: \(err.localizedDescription)")
+                    }
+                }, "Cancel", .cancel, nil)
+            case .insert:
+                print("insert")
+            
+            @unknown default:
+                fatalError()
         }
         
         

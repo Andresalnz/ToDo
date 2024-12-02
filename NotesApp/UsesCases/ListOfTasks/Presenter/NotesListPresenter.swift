@@ -23,7 +23,7 @@ class NotesListPresenter {
     
     func numberNotes() -> Int {
         do {
-            if let numberNotes = try dataProvider?.fetchTasks()?.count {
+            if let numberNotes = try DataProvider.shared.fetchTasks()?.count {
                 return numberNotes
             }
         } catch let err {
@@ -34,7 +34,7 @@ class NotesListPresenter {
     
     func fetchTasks() -> [ListNotes]? {
         do {
-            return try dataProvider?.fetchTasks()
+            return try DataProvider.shared.fetchTasks()
         } catch let err {
             print("Error pintando toda las tareas \(err.localizedDescription)")
             //Alerta
@@ -44,8 +44,7 @@ class NotesListPresenter {
     
     func deleteTask(note: ListNotes) throws {
         do {
-            try dataProvider?.delete(note: note)
-            ui?.update()
+         try  DataProvider.shared.delete(note: note)
         } catch {
             print("No se ha podido borrar la nota")
         }

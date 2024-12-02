@@ -29,7 +29,7 @@ extension AddAndEditNotePresenter: AddNotePresenterProtocol {
         guard let title = title, let descriptionNote = descriptionNote else {
             throw fatalError()
         }
-       try interactor.addNote(type: NSSQLiteStoreType, title: title , descriptionNote: descriptionNote, dateNote: date)
+        try DataProvider.shared.addNote(type: NSSQLiteStoreType, title: title , descriptionNote: descriptionNote, dateNote: date)
     }
     
     func editNote(title: String?, descriptionNote: String?, date: Date, note: ListNotes, _ handler: (() -> Void)?) throws {
@@ -44,7 +44,7 @@ extension AddAndEditNotePresenter: AddNotePresenterProtocol {
         //note.date = date
         print(note)
         if note.isUpdated == true {
-            try isSave()
+            try DataProvider.shared.save()
             handler?()
         } else {
             handler?()
@@ -57,7 +57,7 @@ extension AddAndEditNotePresenter: AddNotePresenterProtocol {
     
     func deleteTask(idNote: ListNotes) throws {
         do {
-            try interactor.delete(note: idNote)
+            try  DataProvider.shared.delete(note: idNote)
             ui?.update()
         } catch {
             print("No se ha podido borrar la nota")

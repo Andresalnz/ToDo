@@ -84,8 +84,7 @@ extension DataProvider: DataProviderProtocol, NSFetchedResultsControllerDelegate
 
     
     func delete(note: ListNotes) throws {
-        let context = note.managedObjectContext
-        context?.delete(note)
+        context.delete(note)
         
         try save()
     }
