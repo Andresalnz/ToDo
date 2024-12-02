@@ -15,4 +15,14 @@ extension UIViewController {
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
+    
+    func showAlertTwoOptions(_ titleAlert: String, _ titleAction1: String, _ style1: UIAlertAction.Style, _ handler1: @escaping ((UIAlertAction) -> Void), _ titleAction2: String, _ style2: UIAlertAction.Style, _ handler2:  ((UIAlertAction) -> Void)?) {
+        
+        let alert = UIAlertController(title: titleAlert, message: nil, preferredStyle: .alert)
+        let actionOK = UIAlertAction(title: titleAction1, style: style1, handler: handler1)
+        let actionCancel = UIAlertAction(title: titleAction2, style: style2, handler: handler2)
+        alert.addAction(actionOK)
+        alert.addAction(actionCancel)
+        present(alert, animated: true, completion: nil)
+    }
 }
