@@ -29,12 +29,25 @@ class NoteTableViewCell: UITableViewCell {
     
     
     func configurePrint(with note: ListNotes) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "es")
+        dateFormatter.dateFormat = "dd/MM/yy"
+        
         self.descriptionNote.numberOfLines = 2
         self.title.font = .RobotoRegular
         self.descriptionNote.font = .RobotoLight
         self.title.text = note.title
-        self.descriptionNote.text = note.descriptionNote
-        self.dateNote.text = "20/12/23"
-        self.dateNote.font = .RobotoLight
+        
+        if note.descriptionNote == "" {
+            self.descriptionNote.text = "No description"
+        } else {
+            self.descriptionNote.text = note.descriptionNote
+        }
+       
+        
+        if let dateNote = note.date {
+            self.dateNote.text = dateFormatter.string(from: dateNote)
+            self.dateNote.font = .RobotoLight
+        }
     }
 }
