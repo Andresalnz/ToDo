@@ -118,6 +118,7 @@ class AddAndEditNoteViewController: UIViewController {
                     
                     if let title = titleTextField.text, !title.isEmpty, let description = descriptionTextView.text {
                         try presenter?.addNote(title: title, descriptionNote: description, date: .now)
+                        self.title = title
                         navigationController?.popViewController(animated: true)
                         ui?.update()
                     } else {
@@ -181,7 +182,7 @@ class AddAndEditNoteViewController: UIViewController {
 //MARK: - ConfigurationMenuButtonItem
 extension AddAndEditNoteViewController: ConfigurationMenuButtonItem, ConfigurationNavigationBar {
     func createNavigationBar() {
-        title = "New Note"
+        title = note?.title
         createButtonsItem()
     }
     
