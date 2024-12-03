@@ -44,7 +44,6 @@ class AddAndEditNoteViewController: UIViewController {
     func actionBackButton() {
         self.navigationController?.topViewController?.navigationItem.backAction = UIAction(title: "", state: .mixed, handler: { _ in
             if self.titleTextField.text?.isEmpty == true {
-                self.showAlertOK("Error", "Please enter a title, was not saved", "OK", .default, {_ in self.titleTextField.becomeFirstResponder()})
                 self.navigationController?.popViewController(animated: true)
             } else {
                 self.doneButtonAction()
