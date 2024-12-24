@@ -140,7 +140,8 @@ extension NotesListViewController: ConfigurationToolbar {
         var buttons: [UIBarButtonItem] = []
         let buttonSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let buttonAdd = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: #selector(pushScreenaddNote))
-        buttons.append(contentsOf: [buttonSpace, buttonAdd])
+        let buttonCategories = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: nil, action: nil)
+        buttons.append(contentsOf: [buttonCategories, buttonSpace, buttonAdd])
         configureToolbar(buttons)
     }
 }
