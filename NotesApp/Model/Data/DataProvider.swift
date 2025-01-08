@@ -9,17 +9,18 @@ import Foundation
 import CoreData
 
 protocol DataProviderProtocol {
-    func addNote(type: String, title: String, descriptionNote: String, dateNote: Date) throws
-    func fetchTasks() throws -> [ListNotes]?
+    func addNote(_ forEntityName: forEntity, type: String, title: String, descriptionNote: String?, dateNote: Date?) throws
     func save() throws
     func delete(note: ListNotes) throws
-    func configurarFetchedResultsController()
+    func configurarFetchedResultsController<T: NSManagedObject>(for entity: forEntity, sortDescriptors: [NSSortDescriptor]?) -> NSFetchedResultsController<T>
+}
+
+enum forEntity: String {
+    case note = "ListNotes"
+    case category = "Categories"
 }
 
 class DataProvider: NSObject {
-   
-    //MARK: - NSFetchedResultsController
-    var fetchedResultsController: NSFetchedResultsController<ListNotes>?
     
     //MARK: - Singleton
     static let shared = DataProvider()
@@ -41,20 +42,22 @@ class DataProvider: NSObject {
             }
         }
         super.init()
-        configurarFetchedResultsController()
+        
     }
 
 }
 
 
-
 //MARK: - DataProviderProtocol, NSFetchedResultsControllerDelegate
 extension DataProvider: DataProviderProtocol, NSFetchedResultsControllerDelegate {
-    func configurarFetchedResultsController()  {
-        let request: NSFetchRequest<ListNotes> = ListNotes.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-        fetchedResultsController?.delegate = self
+    
+    func configurarFetchedResultsController<T: NSManagedObject>(for entity: forEntity, sortDescriptors: [NSSortDescriptor]? = nil) -> NSFetchedResultsController<T> {
+        let entityName = entity.rawValue
+        let fetchRequest = NSFetchRequest<T>(entityName: entityName)
+        fetchRequest.sortDescriptors = sortDescriptors
+        let fetchedResults = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+
+        return fetchedResults
     }
     //MARK: - CRUD
     func save() throws {
@@ -63,28 +66,33 @@ extension DataProvider: DataProviderProtocol, NSFetchedResultsControllerDelegate
         }
     }
     
-    func addNote(type: String, title: String, descriptionNote: String, dateNote: Date) throws {
-        guard let entityDescription = NSEntityDescription.entity(forEntityName:"ListNotes", in: context) else {
+    func addNote(_ forEntityName: forEntity, type: String, title: String, descriptionNote: String? = nil, dateNote: Date? = nil) throws {
+        guard let entityDescription = NSEntityDescription.entity(forEntityName: forEntityName.rawValue, in: context) else {
             return
         }
         
-        let task = ListNotes(entity: entityDescription, insertInto: context)
-        task.title = title
-        task.descriptionNote = descriptionNote
-        task.date = dateNote
+        switch forEntityName {
+            case .note:
+                let note = ListNotes(entity: entityDescription, insertInto: context)
+                note.title = title
+                note.descriptionNote = descriptionNote
+                note.date = dateNote
+            case .category:
+                let category = Categories(entity: entityDescription, insertInto: context)
+                category.nameCat = title
+        }
+     
+        try save()
+    }
+    
+    func delete(note: ListNotes) throws {
+        context.delete(note)
         
         try save()
     }
     
-    func fetchTasks() throws -> [ListNotes]?  {
-        try fetchedResultsController?.performFetch()
-        return fetchedResultsController?.fetchedObjects
-    }
-    
-
-    
-    func delete(note: ListNotes) throws {
-        context.delete(note)
+    func deleteCat(category: Categories) throws {
+        context.delete(category)
         
         try save()
     }
