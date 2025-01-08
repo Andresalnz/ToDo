@@ -41,6 +41,10 @@ class NotesListViewController: UIViewController {
        presenter?.addOrEditNote(note: nil)
     }
     
+    @objc func pushScreenCategories() {
+        presenter?.pushCategories()
+     }
+    
 }
 
 //MARK: - UITableViewDataSource, UITableViewDelegate
@@ -140,7 +144,7 @@ extension NotesListViewController: ConfigurationToolbar {
         var buttons: [UIBarButtonItem] = []
         let buttonSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let buttonAdd = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: #selector(pushScreenaddNote))
-        let buttonCategories = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: nil, action: nil)
+        let buttonCategories = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: nil, action: #selector(pushScreenCategories))
         buttons.append(contentsOf: [buttonCategories, buttonSpace, buttonAdd])
         configureToolbar(buttons)
     }

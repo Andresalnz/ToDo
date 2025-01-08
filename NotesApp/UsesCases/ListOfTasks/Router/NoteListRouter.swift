@@ -37,4 +37,10 @@ class NoteListRouter {
         guard let vc = notesList else { return }
         addNoteRouter.showEditNote(vc, note)
     }
+    
+    func showCategory() {
+        let categoryRouter = CategoryRouter()
+        guard let vc = notesList else { return }
+        categoryRouter.showCategory(vc)
+    }
 }
