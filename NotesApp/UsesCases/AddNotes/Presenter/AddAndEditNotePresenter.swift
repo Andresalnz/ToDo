@@ -29,7 +29,7 @@ extension AddAndEditNotePresenter: AddNotePresenterProtocol {
         guard let title = title, let descriptionNote = descriptionNote else {
             throw fatalError()
         }
-        try DataProvider.shared.addNote(type: NSSQLiteStoreType, title: title , descriptionNote: descriptionNote, dateNote: date)
+        try DataProvider.shared.addNote(.note, type: NSSQLiteStoreType, title: title , descriptionNote: descriptionNote, dateNote: date)
     }
     
     func editNote(title: String?, descriptionNote: String?, date: Date, note: ListNotes, _ handler: (() -> Void)?) throws {
