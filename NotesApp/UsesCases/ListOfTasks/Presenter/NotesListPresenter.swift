@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import CoreData
 
-class NotesListPresenter {
+class NotesListPresenter: NSObject, NSFetchedResultsControllerDelegate {
     
      let dataProvider: DataProvider?
      var ui: PresenterUi?
     var router: NoteListRouter?
-        
+    var fetchedResultsController: NSFetchedResultsController<ListNotes>?
 
     
     
@@ -23,18 +24,28 @@ class NotesListPresenter {
     
     func numberNotes() -> Int {
         do {
-            if let numberNotes = try DataProvider.shared.fetchTasks()?.count {
+           
+            if let numberNotes = fetchTasks()?.count {
                 return numberNotes
             }
         } catch let err {
             print("error pintando toda las tareas \(err.localizedDescription)")
         }
-     return 0
+        return 0
     }
     
     func fetchTasks() -> [ListNotes]? {
+        let sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        fetchedResultsController = DataProvider.shared.configurarFetchedResultsController(
+            for: .note,
+            sortDescriptors: sortDescriptors
+        )
+        
+        fetchedResultsController?.delegate = self
         do {
-            return try DataProvider.shared.fetchTasks()
+            try fetchedResultsController?.performFetch()
+            return fetchedResultsController?.fetchedObjects
+           // return try DataProvider.shared.fetchTasks()
         } catch let err {
             print("Error pintando toda las tareas \(err.localizedDescription)")
             //Alerta
@@ -58,5 +69,9 @@ class NotesListPresenter {
             router?.showAddNote()
         }
         
+    }
+    
+    func pushCategories() {
+        router?.showCategory()
     }
 }
