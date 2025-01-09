@@ -8,9 +8,16 @@
 import UIKit
 
 class CategoryTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var titleCategory: UILabel!
-    @IBOutlet weak var editButton: UIButton!
+    
+    @IBOutlet weak var categoryStackView: UIStackView!
+    @IBOutlet weak var categoryTextField: UITextField!
+    @IBOutlet weak var categoryEditButton: UIButton!
+    var isEditingCategory: Bool = false
+    
+    var category: String? = nil
+    
+    var trasformerCategory: ((String) throws -> Void)?
+    
     static let identifier: String = "CategoryTableViewCell"
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,17 +31,35 @@ class CategoryTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     func styleCell(_ category: Categories) {
-        editButton.setImage(UIImage(systemName: "pencil"), for: .normal)
-        editButton.tintColor = .black
         
-        titleCategory.text = category.nameCat
-        titleCategory.font = .RobotoRegular
+        categoryEditButton.setImage(UIImage(systemName: "pencil"), for: .normal)
+        categoryEditButton.tintColor = .black
+        categoryTextField.text = category.nameCat
+        categoryTextField.font = .RobotoRegular
+        categoryTextField.borderStyle = .none
+        categoryTextField.isUserInteractionEnabled = false
         
     }
     
     @IBAction func editButtonAction(_ sender: Any) {
-        print("editar")
+        if isEditingCategory {
+            categoryTextField.borderStyle = .none
+            categoryTextField.isUserInteractionEnabled = false
+            categoryEditButton.setImage(UIImage(systemName: "pencil"), for: .normal)
+            if let categoryTextFieldText = categoryTextField.text {
+                do {
+                    try trasformerCategory?(categoryTextFieldText)
+                } catch let err {
+                    print(err.localizedDescription)
+                }
+              
+            }
+            isEditingCategory = false
+        } else {
+            categoryTextField.borderStyle = .roundedRect
+            categoryTextField.isUserInteractionEnabled = true
+            categoryEditButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
+            isEditingCategory = true
+        }
     }
-    
-    
 }
