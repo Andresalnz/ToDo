@@ -22,6 +22,16 @@ class CategoriesPresenter: NSObject, NSFetchedResultsControllerDelegate {
         
     }
     
+    func editCategory(category: Categories, titleCategory: String) throws {
+        if category.nameCat != titleCategory {
+            category.nameCat = titleCategory
+        }
+        
+        if category.isUpdated {
+           try isSave()
+        }
+    }
+    
     func deleteCategory(category: Categories) throws {
         do {
             try  DataProvider.shared.deleteCat(category: category)
@@ -62,7 +72,7 @@ class CategoriesPresenter: NSObject, NSFetchedResultsControllerDelegate {
     }
     
     func isSave() throws {
-        try interactor.save()
+        try DataProvider.shared.save()
     }
     
 }
