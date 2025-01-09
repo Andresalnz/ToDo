@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,24 +19,52 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uqW-P1-vs7">
-                        <rect key="frame" x="67" y="30" width="328" height="239"/>
+                        <rect key="frame" x="10" y="30" width="41.333333333333336" height="239"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uWj-0P-mls">
+                        <rect key="frame" x="348" y="0.0" width="47" height="299"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ouq-XW-LO2">
+                                <rect key="frame" x="12" y="47.000000000000014" width="24" height="205.33333333333337"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                                <connections>
+                                    <action selector="editButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="OtZ-3S-MMS"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Ouq-XW-LO2" firstAttribute="leading" secondItem="uWj-0P-mls" secondAttribute="leading" constant="12" id="BLT-GK-etR"/>
+                            <constraint firstAttribute="trailing" secondItem="Ouq-XW-LO2" secondAttribute="trailing" constant="11" id="Wu8-hi-aCN"/>
+                            <constraint firstItem="Ouq-XW-LO2" firstAttribute="top" secondItem="uWj-0P-mls" secondAttribute="top" constant="47" id="Yzp-DA-Ma2"/>
+                            <constraint firstAttribute="bottom" secondItem="Ouq-XW-LO2" secondAttribute="bottom" constant="46.666666666666657" id="dwh-7I-yGO"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="uWj-0P-mls" secondAttribute="trailing" id="CAh-7m-Ige"/>
+                    <constraint firstItem="uWj-0P-mls" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="NjJ-Ch-Lmf"/>
                     <constraint firstAttribute="bottom" secondItem="uqW-P1-vs7" secondAttribute="bottom" constant="30" id="buv-J9-54t"/>
-                    <constraint firstItem="uqW-P1-vs7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="67" id="eqV-Ni-ACx"/>
-                    <constraint firstAttribute="trailing" secondItem="uqW-P1-vs7" secondAttribute="trailing" id="lVU-Ml-6Pj"/>
+                    <constraint firstItem="uqW-P1-vs7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="eqV-Ni-ACx"/>
+                    <constraint firstAttribute="bottom" secondItem="uWj-0P-mls" secondAttribute="bottom" id="mhx-71-KJ9"/>
                     <constraint firstItem="uqW-P1-vs7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="sUf-2P-zIR"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="editButton" destination="Ouq-XW-LO2" id="qG8-wx-8XD"/>
                 <outlet property="titleCategory" destination="uqW-P1-vs7" id="lDZ-Cg-KRe"/>
             </connections>
             <point key="canvasLocation" x="203.81679389312976" y="117.95774647887325"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
