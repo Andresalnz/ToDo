@@ -52,8 +52,16 @@ class ListCategoriesViewController: UIViewController {
         
         if let title = categoryTextField.text, !title.isEmpty {
             do {
-                try  presenter?.addCategory(titleCategory: title)
-                categoryTableView.reloadData()
+                let duplicate = presenter?.fetchTasks()?.contains(where: { i in
+                    i.nameCat == title
+                })
+                if duplicate == true {
+                    self.showAlertOK("Error", "Esta categoria ya existed", "OK", .default, nil)
+                } else {
+                    try  presenter?.addCategory(titleCategory: title)
+                    categoryTableView.reloadData()
+                }
+            
                 print(presenter?.fetchTasks())
             } catch let err {
                 print("Categoria no guardada: \(err.localizedDescription)")
@@ -83,13 +91,10 @@ extension ListCategoriesViewController: UITableViewDataSource, UITableViewDelega
         guard let cellCategory: CategoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: CategoryTableViewCell.identifier, for: indexPath) as? CategoryTableViewCell else { return UITableViewCell() }
         
         let categories = presenter?.fetchTasks()
-        if let category = categories?[indexPath.row]  {
-            cellCategory.titleCategory.text = category.nameCat
-            
-            return cellCategory
-        }
+        guard let category = categories?[indexPath.row] else { return UITableViewCell() }
         
-       // cellCategory.titleCategory.text = category.nameCat
+        cellCategory.styleCell(category)
+        cellCategory.selectionStyle = .none
         
         return cellCategory
     }
