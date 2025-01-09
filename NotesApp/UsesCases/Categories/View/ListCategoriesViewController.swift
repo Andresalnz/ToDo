@@ -57,8 +57,11 @@ class ListCategoriesViewController: UIViewController {
                 })
                 if duplicate == true {
                     self.showAlertOK("Error", "Esta categoria ya existed", "OK", .default, nil)
+                    categoryTextField.becomeFirstResponder()
+                    categoryTextField.text = ""
                 } else {
                     try  presenter?.addCategory(titleCategory: title)
+                    categoryTextField.text = ""
                     categoryTableView.reloadData()
                 }
             
@@ -89,9 +92,14 @@ extension ListCategoriesViewController: UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cellCategory: CategoryTableViewCell = tableView.dequeueReusableCell(withIdentifier: CategoryTableViewCell.identifier, for: indexPath) as? CategoryTableViewCell else { return UITableViewCell() }
-        
+       
         let categories = presenter?.fetchTasks()
         guard let category = categories?[indexPath.row] else { return UITableViewCell() }
+        cellCategory.trasformerCategory = { i in
+            
+          try self.presenter?.editCategory(category: category, titleCategory: i)
+            print(i)
+        }
         
         cellCategory.styleCell(category)
         cellCategory.selectionStyle = .none
