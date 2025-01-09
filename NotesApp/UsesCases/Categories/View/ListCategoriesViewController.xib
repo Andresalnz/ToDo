@@ -28,6 +28,9 @@
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U24-IC-LRJ">
                             <rect key="frame" x="0.0" y="0.0" width="288" height="34.333333333333336"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="288" id="Q8t-lL-UGR"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
@@ -40,6 +43,9 @@
                             </connections>
                         </button>
                     </subviews>
+                    <constraints>
+                        <constraint firstItem="5oK-PN-azU" firstAttribute="leading" secondItem="U24-IC-LRJ" secondAttribute="trailing" constant="10" id="BId-LC-fge"/>
+                    </constraints>
                 </stackView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1a1-Fr-WRl">
                     <rect key="frame" x="0.0" y="113.33333333333331" width="393" height="704.66666666666674"/>
