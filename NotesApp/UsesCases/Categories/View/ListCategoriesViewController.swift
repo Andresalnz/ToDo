@@ -23,6 +23,7 @@ class ListCategoriesViewController: UIViewController {
     }
 
     func style() {
+        self.title = "Categories"
         categoryTextField.configureStyleTextField("Add Category", nil, .RobotoRegular, .roundedRect, autoCapitalization: .sentences)
         addCategoryButton.setTitle("DONE", for: .normal)
         addCategoryButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
@@ -32,6 +33,7 @@ class ListCategoriesViewController: UIViewController {
     func configureView() {
         style()
         configureTableView()
+        configureTextField()
     }
     func registerCell() {
         let nib = UINib(nibName: String(describing: CategoryTableViewCell.self), bundle: nil)
@@ -44,8 +46,8 @@ class ListCategoriesViewController: UIViewController {
     }
   
     func configureTextField() {
-       
-        
+        categoryTextField.delegate = self
+        categoryTextField.becomeFirstResponder()
     }
 
     @IBAction func addCategoryButtonAction(_ sender: Any) {
@@ -133,4 +135,35 @@ extension ListCategoriesViewController: UITableViewDataSource, UITableViewDelega
         
         
     }
+}
+
+extension ListCategoriesViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let title = categoryTextField.text, !title.isEmpty {
+            do {
+                let duplicate = presenter?.fetchTasks()?.contains(where: { i in
+                    i.nameCat == title
+                })
+                if duplicate == true {
+                    self.showAlertOK("Error", "Esta categoria ya existed", "OK", .default, nil)
+                    categoryTextField.becomeFirstResponder()
+                    categoryTextField.text = ""
+                } else {
+                    try  presenter?.addCategory(titleCategory: title)
+                    categoryTextField.text = ""
+                    categoryTableView.reloadData()
+                    return true
+                }
+            
+               
+            } catch let err {
+                print("Categoria no guardada: \(err.localizedDescription)")
+            }
+        } else {
+            print("Categoria no guardada")
+            return false
+        }
+        return true
+    }
+   
 }
